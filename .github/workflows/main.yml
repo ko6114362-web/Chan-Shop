@@ -24,10 +24,10 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build APK
+      - name: Install Android SDK
         run: |
-          unzip -q ChanShopAndroid_KBZPay_Project.zip -d source
-          gradle -p source/ChanShopAndroid assembleDebug
+          yes | sdkmanager --licenses
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - uses: actions/upload-artifact@v4
         with:
