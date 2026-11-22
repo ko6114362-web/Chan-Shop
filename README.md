@@ -23,7 +23,8 @@ jobs:
         run: |
           echo "$ANDROID_HOME/cmdline-tools/16.0/bin" >> $GITHUB_PATH
           echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
-          yes | "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses
+          yes | "$ANDROID_HOME/cmdline-tools/16.0/bin/SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)""$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+yes | "$SDKMANAGER" --licensessdkmanager "platforms;android-35" "build-tools;35.0.0"
           "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-35" "build-tools;35.0.0"
 
       - uses: gradle/actions/setup-gradle@v4
