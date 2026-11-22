@@ -1,3 +1,4 @@
+
 name: Build Chan Shop APK
 
 on:
@@ -6,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -14,15 +16,18 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: android-actions/setup-android@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
 
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - run: |
+      - name: Build APK
+        run: |
           unzip -q ChanShopAndroid_KBZPay_Project.zip -d source
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
           gradle -p source/ChanShopAndroid assembleDebug
 
       - uses: actions/upload-artifact@v4
